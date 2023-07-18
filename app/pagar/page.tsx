@@ -4,6 +4,7 @@ import Clock from "components/clock";
 import { Copy } from "components/copy";
 import { Main } from "components/main";
 import { cookies } from "next/headers";
+import Socket from "./client";
 import { Tabs } from "./tabs";
 
 enum PaymentMethod {
@@ -24,97 +25,77 @@ export default async function Pagar() {
 	const date = new Date();
 	date.setTime(Date.parse(data.created_at));
 
-	const socket = new WebSocket(
-		`wss://payments.smsdata.com/ws/${identifier?.value}`,
-	);
-
-	socket.onopen = () => {
-		console.log("socket open");
-	};
-
-	socket.onmessage = (event) => {
-		const data = JSON.parse(event.data);
-		console.log("socket msg", event.data);
-		// handle transacciones
-		// mostrar mensaje de pago recibido?
-	};
-
-	socket.onclose = (event) => {
-		console.log("socket close", event);
-	};
-
-	socket.onerror = (event) => {
-		console.log("socket error", event);
-	};
-
 	return (
 		<Main>
-			<Box>
-				<h2 className="">Resumen del pedido</h2>
-				<div className="card">
-					<div className="gap-0 card-body">
-						<div className="flex justify-between gap-2">
-							<span>Importe:</span>
-							<span>{data.fiat_amount} EUR</span>
-						</div>
-						<div className="m-0 divider" />
-						<div className="flex justify-between gap-2">
-							<p>Moneda seleccionada:</p>
-							<p>{data.currency_id}</p>
-						</div>
-						<div className="m-0 divider" />
-						<div className="flex justify-between gap-2">
-							<p>Comercio:</p>
-							<p>ACME Corp</p>
-						</div>
-						<div className="flex justify-between gap-2">
-							<p>Fecha:</p>
-							<p>
-								{date.toLocaleString("es-AR", {
-									dateStyle: "short",
-									timeStyle: "short",
-								})}
-							</p>
-						</div>
-						<div className="m-0 divider" />
-						<div className="flex justify-between gap-2">
-							<p>Concepto:</p>
-							<p>{data.notes}</p>
+			<Socket id={identifier?.value} />
+			<div className="flex flex-wrap gap-8 m-auto">
+				<Box>
+					<h2 className="mb-4 text-xl text-darker">Resumen del pedido</h2>
+					<div className="shadow-none card bg-light5">
+						<div className="gap-0 card-body">
+							<div className="flex justify-between gap-16">
+								<p className="lead">Importe:</p>
+								<p>{data.fiat_amount} EUR</p>
+							</div>
+							<div className="m-0 divider" />
+							<div className="flex justify-between gap-16">
+								<p className="lead">Moneda seleccionada:</p>
+								<p>{data.currency_id}</p>
+							</div>
+							<div className="m-0 divider" />
+							<div className="flex justify-between gap-16">
+								<p className="lead">Comercio:</p>
+								<p>ACME Corp</p>
+							</div>
+							<div className="flex justify-between gap-16">
+								<p className="lead">Fecha:</p>
+								<p>
+									{date.toLocaleString("es-AR", {
+										dateStyle: "short",
+										timeStyle: "short",
+									})}
+								</p>
+							</div>
+							<div className="m-0 divider" />
+							<div className="flex justify-between gap-2">
+								<p className="lead">Concepto:</p>
+								<p>{data.notes}</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</Box>
+				</Box>
 
-			<Box>
-				<h2>Realizar el pago</h2>
-				<div className="card">
-					<div className="items-center card-body">
-						<Clock expiration={data.expired_time} />
-						<Tabs
-							payment_uri={payment_uri?.value}
-							address={data.address}
-							crypto_amount={data.crypto_amount}
-							identifier={data.identifier}
-							notes={data.notes}
-						/>
-						<div className="flex gap-2">
-							<span>Enviar </span>
-							<strong>
-								<Copy>
-									{data.crypto_amount} {data.currency_id}
-								</Copy>
-							</strong>
-						</div>
-						<small>
-							<Copy>{data.address}</Copy>
-						</small>
-						{/* <small className="flex gap-2">
+				<Box>
+					<h2 className="mb-4 text-xl text-darker">Realizar el pago</h2>
+					<div className="shadow-none card bg-light5">
+						<div className="items-center card-body">
+							<Clock expiration={data.expired_time} />
+							<Tabs
+								payment_uri={payment_uri?.value}
+								address={data.address}
+								crypto_amount={data.crypto_amount}
+								identifier={data.identifier}
+								notes={data.notes}
+							/>
+							<div className="flex gap-2 text-darker">
+								<span>Enviar </span>
+								<strong className="font-bold">
+									<Copy>
+										{data.crypto_amount} {data.currency_id}
+									</Copy>
+								</strong>
+							</div>
+							<small className="text-darker">
+								<Copy>{data.address}</Copy>
+							</small>
+							{/* <small className="flex gap-2">
 							<p>Etiqueta de destino: </p>
 							<Copy>{¿..?}</Copy>
 						</small> */}
+						</div>
 					</div>
-				</div>
-			</Box>
+				</Box>
+			</div>
 		</Main>
 	);
 }

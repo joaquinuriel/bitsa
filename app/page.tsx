@@ -17,28 +17,28 @@ export default async function Home() {
 
 	return (
 		<Main>
-			<div className="flex flex-col w-full max-w-xs gap-6">
-				<h1 className="text-3xl font-bold">Crear Pago</h1>
+			<div className="flex flex-col w-full max-w-xs gap-6 m-auto">
+				<h1 className="text-3xl font-bold text-darker">Crear Pago</h1>
 				<form action={action} className="form-group">
 					<div className="form-field">
-						<label htmlFor="amount" className="form-label">
+						<label htmlFor="amount" className="form-label text-darker">
 							Importe a pagar
 						</label>
 						<div className="form-control">
-							<span className="absolute inset-y-0 inline-flex items-center text-base text-gray-400 left-3">
+							<span className="absolute inset-y-0 inline-flex items-center text-base text-darker left-3">
 								EUR
 							</span>
 							<input
 								type="number"
 								name="amount"
 								id="amount"
-								className="pl-12 input"
+								className="pl-12 border rounded-md input text-darker"
 								defaultValue={amount?.value}
 							/>
 						</div>
 					</div>
 					<div className="form-field">
-						<label htmlFor="concept" className="form-label">
+						<label htmlFor="concept" className="form-label text-darker">
 							Concepto
 						</label>
 						<div className="form-control">
@@ -46,14 +46,17 @@ export default async function Home() {
 								type="text"
 								name="concept"
 								id="concept"
-								className="input"
+								className="border rounded-md input text-darker"
 								defaultValue={concept?.value}
 							/>
 						</div>
 					</div>
 					<div className="form-field">
 						<div className="form-control">
-							<button type="submit" className="w-full btn btn-primary">
+							<button
+								type="submit"
+								className="w-full rounded-md btn btn-primary"
+							>
 								Crear pago
 							</button>
 						</div>
