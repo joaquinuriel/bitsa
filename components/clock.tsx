@@ -23,7 +23,7 @@ export default function Clock({ expiration }: { expiration: string }) {
 
 	if (time <= 0)
 		return (
-			<span className="flex items-center gap-2">
+			<span className="flex items-center gap-2 text-darker">
 				<ClockIcon className="w-4 h-4" />
 				00:00
 				<Link href="/" className="link">
@@ -33,7 +33,7 @@ export default function Clock({ expiration }: { expiration: string }) {
 		);
 
 	return (
-		<span className="flex items-center gap-2">
+		<span className="flex items-center gap-2 text-darker">
 			<ClockIcon className="w-4 h-4" />
 			{minutes}:{seconds}
 		</span>

@@ -11,7 +11,7 @@ export default function Page({
 }) {
 	return (
 		<Main>
-			<div className="prose dark:prose-invert">
+			<div className="prose">
 				<h1>Ups! Hubo un error</h1>
 				<button
 					type="button"

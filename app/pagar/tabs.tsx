@@ -51,29 +51,33 @@ export function Tabs({
 				{/* rome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 				<div
 					onClick={() => setActiveTab("smartqr")}
-					className={`px-4 py-2 tab tab-pill ${
-						activeTab === "smartqr" ? "tab-active" : ""
+					className={`px-4 py-2 tab rounded ${
+						activeTab === "smartqr" ? "bg-lighter" : ""
 					}`}
 				>
-					<p>Smart QR</p>
+					<p className={activeTab === "smartqr" ? "!text-white" : ""}>
+						Smart QR
+					</p>
 				</div>
 				{/* rome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 				<div
 					onClick={() => setActiveTab("walletqr")}
-					className={`px-4 py-2 tab tab-pill ${
-						activeTab === "walletqr" ? "tab-active" : ""
+					className={`px-4 py-2 tab rounded ${
+						activeTab === "walletqr" ? "bg-lighter" : ""
 					}`}
 				>
-					<p>Wallet QR</p>
+					<p className={activeTab === "walletqr" ? "!text-white" : ""}>
+						Wallet QR
+					</p>
 				</div>
 				{/* rome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 				<div
 					onClick={() => setActiveTab("web3")}
-					className={`px-4 py-2 tab tab-pill ${
-						activeTab === "web3" ? "tab-active" : ""
+					className={`px-4 py-2 tab rounded ${
+						activeTab === "web3" ? "bg-lighter" : ""
 					}`}
 				>
-					<p>Web 3</p>
+					<p className={activeTab === "web3" ? "!text-white" : ""}>Web 3</p>
 				</div>
 			</div>
 
@@ -94,7 +98,7 @@ export function Tabs({
 					<button
 						// disabled={currency_id !== "eth"}
 						type="button"
-						className="btn btn-rounded btn-active btn-block"
+						className="rounded-md btn btn-active btn-block"
 						onClick={() => {
 							if (!ethereum) return;
 							if (!account) getAccounts();

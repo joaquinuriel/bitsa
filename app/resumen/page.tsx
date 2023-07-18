@@ -37,59 +37,61 @@ export default async function Resumen() {
 
 	return (
 		<Main>
-			<Box>
-				<h2>Resumen del pedido</h2>
-				<div className="card">
-					<div className="gap-0 card-body">
-						<div className="flex justify-between">
-							<p>Importe:</p>
-							<p>{amount?.value} EUR</p>
-						</div>
-						<div className="m-0 divider" />
-						<div className="flex justify-between">
-							<p>Comercio:</p>
-							<p>Demo</p>
-						</div>
-						<div className="flex justify-between">
-							<p>Fecha:</p>
-							<p>
-								{new Date().toLocaleString("es-AR", {
-									dateStyle: "short",
-									timeStyle: "short",
-								})}
-							</p>
-						</div>
-						<div className="m-0 divider" />
-						<div className="flex">
-							<p className="flex-1">Concepto:</p>
-							<p>{concept?.value}</p>
+			<div className="flex flex-wrap gap-8 m-auto">
+				<Box>
+					<h2 className="mb-4 text-xl text-darker">Resumen del pedido</h2>
+					<div className="shadow-none card bg-light5">
+						<div className="gap-0 card-body">
+							<div className="flex justify-between gap-16">
+								<p className="lead">Importe:</p>
+								<p>{amount?.value} EUR</p>
+							</div>
+							<div className="m-0 divider" />
+							<div className="flex justify-between gap-16">
+								<p className="lead">Comercio:</p>
+								<p>Demo</p>
+							</div>
+							<div className="flex justify-between gap-16">
+								<p className="lead">Fecha:</p>
+								<p>
+									{new Date().toLocaleString("es-AR", {
+										dateStyle: "short",
+										timeStyle: "short",
+									})}
+								</p>
+							</div>
+							<div className="m-0 divider" />
+							<div className="flex justify-between gap-16">
+								<p className="lead">Concepto:</p>
+								<p>{concept?.value}</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</Box>
+				</Box>
 
-			<div className="mt-7">
-				<form action={action} className="form-group">
-					<div className="form-field">
-						<label htmlFor="currency">Selecionar moneda</label>
-						<select
-							name="currency"
-							id="currency"
-							className="appearance-none input"
-						>
-							{currencies.map((coin: Currency) => (
-								<option key={coin.symbol} value={coin.symbol}>
-									{coin.name}
-								</option>
-							))}
-						</select>
-					</div>
-					<div className="form-field">
-						<button type="submit" className="btn btn-primary">
-							Continuar al pago
-						</button>
-					</div>
-				</form>
+				<div className="w-full sm:mt-7 sm:w-fit">
+					<form action={action} className="form-group">
+						<div className="form-field">
+							<label htmlFor="currency">Selecionar moneda</label>
+							<select
+								name="currency"
+								id="currency"
+								className="appearance-none input input-solid bg-light5"
+							>
+								{currencies.map((coin: Currency) => (
+									<option key={coin.symbol} value={coin.symbol}>
+										{coin.name}
+									</option>
+								))}
+							</select>
+						</div>
+						<div className="form-field">
+							<button type="submit" className="rounded-md btn btn-primary">
+								Continuar al pago
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</Main>
 	);
