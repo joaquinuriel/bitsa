@@ -6,9 +6,13 @@ export default async function Home() {
 	async function action(data: FormData) {
 		"use server";
 		const store = cookies();
-		store.set("amount", `${data.get("amount")}`);
-		store.set("concept", `${data.get("concept")}`);
-		redirect("/resumen");
+		const amount = data.get("amount");
+		const concept = data.get("concept");
+		if (amount && concept) {
+			store.set("amount", `${amount}`);
+			store.set("concept", `${concept}`);
+			redirect("/resumen");
+		} else redirect("/error");
 	}
 
 	const store = cookies();
@@ -34,6 +38,8 @@ export default async function Home() {
 								id="amount"
 								className="pl-12 border rounded-md input text-darker"
 								defaultValue={amount?.value}
+								required
+								min={1}
 							/>
 						</div>
 					</div>
@@ -48,6 +54,7 @@ export default async function Home() {
 								id="concept"
 								className="border rounded-md input text-darker"
 								defaultValue={concept?.value}
+								required
 							/>
 						</div>
 					</div>

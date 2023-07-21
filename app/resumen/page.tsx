@@ -31,6 +31,8 @@ export default async function Resumen() {
 	const amount = store.get("amount");
 	const concept = store.get("concept");
 
+	if (!amount || !concept) redirect("/");
+
 	const currencies = await get("/currencies", {
 		next: { revalidate: 60 },
 	});
